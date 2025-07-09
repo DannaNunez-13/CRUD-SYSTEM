@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Productos</h1>
+        <table class="products-table">
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Precio Regular</th>
+                    <th>Precio</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se mostrarán los productos -->
+            </tbody>
+        </table>
+        <a href="index.html">Volver al inicio</a>
+    </div>
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module">
+    import { db, collection, onSnapshot } from './firebase-config.js';
+    
+    const tbody = document.querySelector('.products-table tbody');
+    function renderProducto(producto) {
+        return `<tr>
+            <td><span class="img-placeholder">📦</span></td>
+            <td>${producto.nombre}</td>
+            <td>$${producto.precio_regular.toFixed(2)}</td>
+            <td>$${producto.precio.toFixed(2)}</td>
+            <td>${producto.descripcion}</td>
+            <td><span class="estado ${producto.estado}">${producto.estado.charAt(0).toUpperCase() + producto.estado.slice(1)}</span></td>
+        </tr>`;
+    }
+    onSnapshot(collection(db, 'productos'), (snapshot) => {
+        tbody.innerHTML = '';
+        snapshot.forEach(doc => {
+            const producto = doc.data();
+            tbody.innerHTML += renderProducto(producto);
+        });
+        if (snapshot.empty) {
+            tbody.innerHTML = '<tr><td colspan="6">No hay productos aún.</td></tr>';
+        }
+    });
+    </script>
+</body>
+</html>
