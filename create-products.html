@@ -6,9 +6,10 @@
     <title>Crear Producto</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <div class="container">
-        <h1>Crear Producto</h1>
+<body class="home-bg">
+    <div class="dynamic-bg"></div>
+    <div class="container home-container">
+        <h1 class="animated-title">Crear Producto</h1>
         <form class="product-form" enctype="multipart/form-data">
             <label for="nombre">Nombre del producto:</label>
             <input type="text" id="nombre" name="nombre" required>
@@ -35,7 +36,6 @@
         </form>
         <a href="index.html">Volver al inicio</a>
     </div>
-    
     <script type="module" src="firebase-config.js"></script>
     <script type="module">
     import { db, collection, addDoc } from './firebase-config.js';
@@ -72,5 +72,6 @@
         setTimeout(() => mensaje.textContent = '', 2500);
     });
     </script>
+    <script src="home-anim.js"></script>
 </body>
 </html>
