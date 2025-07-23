@@ -34,7 +34,9 @@
     const tbody = document.querySelector('.products-table tbody');
     function renderProducto(producto) {
         return `<tr>
-            <td><span class="img-placeholder">📦</span></td>
+            <td>
+                ${producto.imagen ? `<img src="${producto.imagen}" alt="Imagen de ${producto.nombre}" class="product-img" style="max-width: 80px; max-height: 80px; object-fit: cover; border-radius: 8px;" />` : '<span class="img-placeholder">📦</span>'}
+            </td>
             <td>${producto.nombre}</td>
             <td>$${producto.precio_regular.toFixed(2)}</td>
             <td>$${producto.precio.toFixed(2)}</td>
